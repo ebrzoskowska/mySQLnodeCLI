@@ -33,6 +33,30 @@ exports.addMovie = (title, categories, actor, watched, rating) => {
   }
 }
 
+exports.deleteMovie = (title, username, password) => {
+  try 
+  {
+    const movie = [title, username, password]
+    sql.query("DELETE FROM movies WHERE title = ? AND userID = (SELECT id FROM users WHERE username = ? AND password = ?)", movie)
+  } 
+  catch (error)
+  {
+    console.log(error)
+  }
+}
+
+exports.editMovie = (title, username) => {
+  try 
+  {
+    const editMovie = [title, username];
+    sql.query("UPDATE movies SET watched = 'true' WHERE title = ? AND userID = (SELECT id from users WHERE username = ?)", editMovie)
+  } 
+  catch (error) 
+  {
+    console.log(error);
+  }
+};
+
 exports.showData = () => {
   try 
   {
